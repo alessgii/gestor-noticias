@@ -1,3 +1,9 @@
+<?php
+
+require_once "controllers/obtener_noticias.php";
+
+?>
+
 <!doctype html>
 <html>
 
@@ -31,11 +37,11 @@
                 <h2 class=" font-bold text-2xl">Panel de administración de noticias</h2>
                 <p class=" pt-1">Herramienta interna - Ingeniería en Teleinformática</p>
             </div>
-            <span class="w-60 h-10 text-center bg-indigo-800 rounded-xl p-1 font-bold">Noticias publicadas: 0</span>
+            <span class="w-60 h-10 text-center bg-indigo-800 rounded-xl p-1 font-bold">Noticias publicadas: <?php echo $totalNoticias; ?> </span>
         </div>
 
         <div>
-            <form action=""
+            <form action="controllers/crear_noticia.php" method="POST"
                 class=" w-120 h-150 flex flex-col align-items-center p-10 m-15 text-white bg-zinc-900 border-2 rounded-2xl border-indigo-800">
                 <label class="text-xl font-black" for="">Publicar una noticia</label>
 
@@ -53,13 +59,11 @@
                     <label class="pt-6 pb-3 font-extrabold" for="categoria">Categoria:</label>
                     <select name="categoria" require id="" class="border-2 border-white rounded-sm p-2">
                         <option value="" disable selectd>Seleccionar categoría</option>
-                        <option value="logros">Logros</option>
-                        <option value="alianzas">Alianzas</option>
-                        <option value="avisos">Avisos</option>
+                        <option value="1">Logros</option>
+                        <option value="2">Alianzas</option>
+                        <option value="3">Avisos</option>
                     </select>
                 </div>
-
-
 
                 <input class="m-10 mt-10 p-3 bg-indigo-700 font-black text-xl rounded-xl" type="submit"
                     value="Publicar noticia">
