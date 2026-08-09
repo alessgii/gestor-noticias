@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once "../config/conn.php";
 
 
@@ -26,14 +26,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         ':categoria_id'=>$categoria_id
     ]);
 
-    echo "Noticia publicada exitosamente";
+    $_SESSION['mensaje'] = "La noticia se ha publicado correctamente.";
+    $_SESSION['tipo-msj'] = "succes";
+
     } catch (PDOException $e) {
         die("Error en la consulta SQL: " . $e->getMessage());
 
     }
-} else {
-    echo "Por favor, completa todos los campos.";
-}
+    } else {
+        $_SESSION['mensaje'] = "Por favor, rellena todos los campos.";
+        $_SESSION['tipo-msj'] = "error";
+    }
+    header("Location: ../index.php");
 } else {
     exit();
 }

@@ -1,6 +1,8 @@
 <?php
 
+session_start();
 require_once "controllers/obtener_noticias.php";
+
 
 ?>
 
@@ -32,6 +34,7 @@ require_once "controllers/obtener_noticias.php";
     </header>
 
     <section class="main">
+        <!-- Informacion del panel -->
         <div class="flex flex-col-2 justify-between align-items-center p-5 m-5 text-white" >
             <div>
                 <h2 class=" font-bold text-2xl">Panel de administración de noticias</h2>
@@ -40,9 +43,23 @@ require_once "controllers/obtener_noticias.php";
             <span class="w-60 h-10 text-center bg-indigo-800 rounded-xl p-1 font-bold">Noticias publicadas: <?php echo $totalNoticias; ?> </span>
         </div>
 
-        <div>
+        <!-- Alertas -->
+        <?php if(isset($_SESSION['mensaje'])): ?>
+            <div class="text-white border-2 border-white rounded-2xl p-5 alert-<?php echo $_SESSION['tipo-msj'];?>">
+                <p><?php echo $_SESSION['mensaje'];?></p>
+
+            </div>
+            <?php
+                unset($_SESSION['mensaje']);
+                unset($_SESSION['tipo-msj']);
+            ?>
+        <?php endif; ?>
+
+        <!-- Contenedor de formularios -->
+        <div class="flex flex-col-2">
+        <!-- Formulario: creacion de noticia -->
             <form action="controllers/crear_noticia.php" method="POST"
-                class=" w-120 h-150 flex flex-col align-items-center p-10 m-15 text-white bg-zinc-900 border-2 rounded-2xl border-indigo-800">
+                class=" w-180 h-150 flex flex-col align-items-center p-10 m-15 text-white bg-zinc-900 border-2 rounded-2xl border-indigo-800">
                 <label class="text-xl font-black" for="">Publicar una noticia</label>
 
                 <label class="pt-6 mb-3 font-extrabold" for="titulo">Titulo:</label>
@@ -68,9 +85,35 @@ require_once "controllers/obtener_noticias.php";
                 <input class="m-10 mt-10 p-3 bg-indigo-700 font-black text-xl rounded-xl" type="submit"
                     value="Publicar noticia">
             </form>
+
+            <!-- Mostrar noticias publicadas -->
+            <div class="w-full text-white p-10 m-15 bg-zinc-900 border-2 border-indigo-600 rounded-2xl">
+                <h3 class="text-2xl font-extrabold">Noticias publicadas:</h3>
+                <?php if($totalNoticias > 0): ?>
+                <?php foreach($noticias as $noticia): ?>
+                    <div class="flex flex-col-2 p-5">
+                        <!-- Noticia -->
+                        <h3 class="m-3"><?php echo htmlspecialchars($noticia['titulo']) ?></h3>
+                        <p class="m-3"><?php echo htmlspecialchars($noticia['resumen']) ?></p>
+
+                        <form action="controllers/eliminar_noticia.php" method="POST">
+                            <input type="hidden" name="id" value="<?php echo $noticia['id']; ?>">
+                            <input type="submit" value="Eliminar" class="w-25 h5 ml-40 mt-3 mb-3 bg-indigo-800 rounded-xl font-bold">
+
+                        </form>
+                    </div>
+
+                <?php endforeach; ?>
+
+                <?php else: ?>
+                    <div>
+                        <p class="mt-10 font-bold">No hay noticias publicadas. 
+                            Prueba a crear una publicación!
+                        </p>
+                    </div>
+                <?php endif;?>
+            </div>
         </div>
     </section>
-
 </body>
-
 </html>
