@@ -63,19 +63,19 @@ require_once "controllers/obtener_noticias.php";
                 <label class="text-xl font-black" for="">Publicar una noticia</label>
 
                 <label class="pt-6 mb-3 font-extrabold" for="titulo">Titulo:</label>
-                <input type="text" name="titulo" require placeholder="Escribe el titulo" id=""
+                <input type="text" name="titulo" required placeholder="Escribe el titulo" id=""
                     class="border-2 border-white rounded-sm p-2">
 
                 <label class="pt-6 mb-3 font-extrabold" for="resumen">Resumen:</label>
-                <input type="text" name="resumen" placeholder="Escribe un resumen" require id="" class="border-2 border-white rounded-sm p-2">
+                <input type="text" name="resumen" placeholder="Escribe un resumen" required id="" class="border-2 border-white rounded-sm p-2">
 
                 <label class="pt-6 pb-3 font-extrabold" for="contenido">Contenido:</label>
-                <input type="text" name="contenido" placeholder="Redacta la noticia" require id="" class="border-2 border-white rounded-sm p-2">
+                <input type="text" name="contenido" placeholder="Redacta la noticia" required id="" class="border-2 border-white rounded-sm p-2">
 
                 <div class="flex flex-col align-items-center">
                     <label class="pt-6 pb-3 font-extrabold" for="categoria">Categoria:</label>
-                    <select name="categoria" require id="" class="border-2 border-white rounded-sm p-2">
-                        <option value="" disable selectd>Seleccionar categoría</option>
+                    <select name="categoria" required id="" class="border-2 border-white rounded-sm p-2">
+                        <option value="" disabled selected>Seleccionar categoría</option>
                         <option value="1">Logros</option>
                         <option value="2">Alianzas</option>
                         <option value="3">Avisos</option>
@@ -105,7 +105,7 @@ require_once "controllers/obtener_noticias.php";
                         <!-- Boton: editar noticia -->
                         <div>
                             <input type="hidden" name="id" value="<?php echo $noticia['id']; ?>">
-                            <button onclick="document.getElementById('modal-editar').showModal()"
+                            <button onclick="edit(<?php echo $noticia['id']; ?>)"
                             class="w-25 h5 ml-3 mt-3 mb-3 bg-indigo-800 rounded-xl font-bold text-center">
                                 Editar
                             </button>
@@ -126,10 +126,47 @@ require_once "controllers/obtener_noticias.php";
             </div>
 
             <!-- modal-editar -->
-             <dialog id="modal-editar" class="bg-indigo-800">
-                <h3>Editar noticia</h3>
+             <dialog id="modal-editar" class="w-1/3 h-120 bg-zinc-800 border-2 border-indigo-800 rounded-2xl text-white p-5 m-auto align-items-center">
+
+                <form action="" class="flex flex-col">
+                <h3 class="font-bold text-xl mb-3">Editar noticia</h3>
+
+                <input type="hidden" name="" required>
+
+                <label for="titulo" class="font-bold">Titulo:</label>
+                <input type="text" id="titulo" required class="border-2 border-white rounded-sm p-1 mt-2">
+
+                <label for="resumen" class="font-bold mt-2">Resumen:</label>
+                <textarea name="" id="resumen" required class="border-2 border-white rounded-sm p-1 mt-2"></textarea>
+
+                <div class="flex flex-col align-items-center">
+                    <label class="pt-6 pb-3 font-extrabold" for="categoria">Categoria:</label>
+                    <select name="categoria" required id="" class="border-2 border-white rounded-sm p-2">
+                        <option value="" disabled selected>Seleccionar categoría</option>
+                        <option value="1">Logros</option>
+                        <option value="2">Alianzas</option>
+                        <option value="3">Avisos</option>
+                    </select>
+                </div>
+
+                <div class="flex flex-col-2 mt-13 align-items-center">
+                    <button class="w-1/2  font-bold rounded-sm border-white bg-indigo-700 p-1 mb-3"
+                    type="submit">
+                        Editar
+                    </button>
+                    <button class="w-1/2 font-bold rounded-sm border-white bg-indigo-700 p-1 mb-3 ml-6"
+                    onclick="document.getElementById('modal-editar').close()">
+                        Cancelar
+                    </button>
+                </div>
+                
+
+                </form>
+
              </dialog>
         </div>
     </section>
+
+    <script src="assets/js/app.js"></script>
 </body>
 </html>
