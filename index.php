@@ -96,11 +96,22 @@ require_once "controllers/obtener_noticias.php";
                         <h3 class="m-3"><?php echo htmlspecialchars($noticia['titulo']) ?></h3>
                         <p class="m-3"><?php echo htmlspecialchars($noticia['resumen']) ?></p>
 
+                        <!-- Boton: eliminar noticia -->
                         <form action="controllers/eliminar_noticia.php" method="POST">
                             <input type="hidden" name="id" value="<?php echo $noticia['id']; ?>">
-                            <input type="submit" value="Eliminar" class="w-25 h5 ml-40 mt-3 mb-3 bg-indigo-800 rounded-xl font-bold">
+                            <input type="submit" value="Eliminar" class="w-25 h5 ml-40 mt-3 mb-3 bg-indigo-800 rounded-xl font-bold text-center">
 
                         </form>
+                        <!-- Boton: editar noticia -->
+                        <div>
+                            <input type="hidden" name="id" value="<?php echo $noticia['id']; ?>">
+                            <button onclick="document.getElementById('modal-editar').showModal()"
+                            class="w-25 h5 ml-3 mt-3 mb-3 bg-indigo-800 rounded-xl font-bold text-center">
+                                Editar
+                            </button>
+
+
+                        </div>
                     </div>
 
                 <?php endforeach; ?>
@@ -113,6 +124,11 @@ require_once "controllers/obtener_noticias.php";
                     </div>
                 <?php endif;?>
             </div>
+
+            <!-- modal-editar -->
+             <dialog id="modal-editar" class="bg-indigo-800">
+                <h3>Editar noticia</h3>
+             </dialog>
         </div>
     </section>
 </body>

@@ -7,6 +7,7 @@ require_once "config/conn.php";
 $noticias = [];
 $totalNoticias = 0;
 
+
 try {
     $query = "SELECT id, titulo, resumen FROM noticias ORDER BY fecha_publicacion DESC";
     $stmt = $pdo->prepare($query);
