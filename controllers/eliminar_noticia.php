@@ -24,13 +24,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         $_SESSION['type-msj'] = "error";
 
     }
-
-        header("Location: ../index.php");
-        exit();
+    
+    header("Location: ../index.php");
+    exit();
 
 } else {
-    echo "No se recibio el POST";
-    // header('Location: ../index.php');
-    // exit();
+    header('Location: ../index.php');
+    exit();
 }
 
