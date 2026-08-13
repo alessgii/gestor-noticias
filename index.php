@@ -60,18 +60,18 @@ require_once "controllers/obtener_noticias.php";
                 <label class="text-xl font-black" for="">Publicar una noticia</label>
 
                 <label class="pt-6 mb-3 font-extrabold" for="titulo">Titulo:</label>
-                <input type="text" name="titulo" required placeholder="Escribe el titulo" id=""
+                <input type="text" name="titulo" required placeholder="Escribe el titulo" id="titulo"
                     class="border-2 border-white rounded-sm p-2">
 
                 <label class="pt-6 mb-3 font-extrabold" for="resumen">Resumen:</label>
-                <input type="text" name="resumen" placeholder="Escribe un resumen" required id="" class="border-2 border-white rounded-sm p-2">
+                <input type="text" name="resumen" placeholder="Escribe un resumen" required id="resumen" class="border-2 border-white rounded-sm p-2">
 
                 <label class="pt-6 pb-3 font-extrabold" for="contenido">Contenido:</label>
-                <input type="text" name="contenido" placeholder="Redacta la noticia" required id="" class="border-2 border-white rounded-sm p-2">
+                <input type="text" name="contenido" placeholder="Redacta la noticia" required id="contenido" class="border-2 border-white rounded-sm p-2">
 
                 <div class="flex flex-col align-items-center">
                     <label class="pt-6 pb-3 font-extrabold" for="categoria">Categoria:</label>
-                    <select name="categoria" required id="" class="border-2 border-white rounded-sm p-2">
+                    <select name="categoria" required id="categoria" class="border-2 border-white rounded-sm p-2">
                         <option value="" disabled selected>Seleccionar categoría</option>
                         <option value="1">Logros</option>
                         <option value="2">Alianzas</option>
