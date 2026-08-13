@@ -1,9 +1,6 @@
 <?php
-
 session_start();
 require_once "controllers/obtener_noticias.php";
-
-
 ?>
 
 <!doctype html>
@@ -128,21 +125,21 @@ require_once "controllers/obtener_noticias.php";
             <!-- modal-editar -->
              <dialog id="modal-editar" class="w-1/3 h-120 bg-zinc-800 border-2 border-indigo-800 rounded-2xl text-white p-5 m-auto align-items-center">
 
-                <form action="" class="flex flex-col">
+                <form class="flex flex-col">
                 <h3 class="font-bold text-xl mb-3">Editar noticia</h3>
 
-                <input type="hidden" name="" required>
+                <input type="hidden" name="edit-id" required id="noticia-id">
 
                 <label for="titulo" class="font-bold">Titulo:</label>
-                <input type="text" id="titulo" required class="border-2 border-white rounded-sm p-1 mt-2">
+                <input type="text" id="edit-titulo" required class="border-2 border-white rounded-sm p-1 mt-2">
 
                 <label for="resumen" class="font-bold mt-2">Resumen:</label>
-                <textarea name="" id="resumen" required class="border-2 border-white rounded-sm p-1 mt-2"></textarea>
+                <textarea name="edit-resumen" id="edit-resumen" required class="border-2 border-white rounded-sm p-1 mt-2"></textarea>
 
                 <div class="flex flex-col align-items-center">
-                    <label class="pt-6 pb-3 font-extrabold" for="categoria">Categoria:</label>
-                    <select name="categoria" required id="" class="border-2 border-white rounded-sm p-2">
-                        <option value="" disabled selected>Seleccionar categoría</option>
+                    <label class="pt-6 pb-3 font-extrabold" for="edit-categoria">Categoria:</label>
+                    <select name="edit-categoria" id="edit-categoria" required class="border-2 border-white rounded-sm p-2">
+                        <option value="" disabled>Seleccionar categoría</option>
                         <option value="1">Logros</option>
                         <option value="2">Alianzas</option>
                         <option value="3">Avisos</option>
@@ -151,10 +148,10 @@ require_once "controllers/obtener_noticias.php";
 
                 <div class="flex flex-col-2 mt-13 align-items-center">
                     <button class="w-1/2  font-bold rounded-sm border-white bg-indigo-700 p-1 mb-3"
-                    type="submit">
+                    type="submit" id="submit">
                         Editar
                     </button>
-                    <button class="w-1/2 font-bold rounded-sm border-white bg-indigo-700 p-1 mb-3 ml-6"
+                    <button type="button" class="w-1/2 font-bold rounded-sm border-white bg-indigo-700 p-1 mb-3 ml-6"
                     onclick="document.getElementById('modal-editar').close()">
                         Cancelar
                     </button>
