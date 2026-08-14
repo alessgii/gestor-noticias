@@ -1,3 +1,56 @@
+document.addEventListener('DOMContentLoaded', () => {
+    cargarNoticias();
+});
+
+async function cargarNoticias() {
+    const totalNoticias = document.getElementById('total-noticias');
+    const container = document.getElementById('news-container');
+
+    try {
+        const response = await fetch(`controllers/obtener_noticias.php`);
+
+        if(!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const result = await response.json();
+
+        if (result.status === 'success') {
+
+            totalNoticias.textContent = result.total;
+            container.innerHTML = '';
+
+            if(result.data.length === 0) {
+                container.innerHTML = '<p>No hay noticias publicadas</p>';
+                return;
+            }
+
+            result.data.forEach(noticia => {
+                const card = document.createElement('article');
+                card.className = 'news-card flex flex-col-2 p-5';
+
+                card.innerHTML = `
+                    <h3 class="m-3">${noticia.titulo}</h3>
+                    <p class="m-3">${noticia.resumen}</p>
+                    <button onclick="eliminar(${noticia.id})" class="w-25 h5 ml-40 mt-3 mb-3 bg-indigo-800 rounded-xl font-bold text-center">Eliminar</button>
+
+                    <button onclick="edit(${noticia.id})" class="w-25 h5 ml-3 mt-3 mb-3 bg-indigo-800 rounded-xl font-bold text-center">Editar</button>
+                    
+                `;
+
+                container.appendChild(card);
+
+            });
+
+        } else {
+            totalNoticias.textContent = '0';
+            container.innerHTML = '<p>Error al cargar las noticias.</p>';
+        }
+     } catch (error) {
+        totalNoticias.textContent = '0';
+        container.innerHTML = '<p>Ocurrió un error en la conexión.</p>';
+    }
+}
 
 // Obtener la informacion para mostrarla en los campos de edicion
 async function edit(id) {

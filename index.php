@@ -1,6 +1,5 @@
 <?php
 session_start();
-require_once "controllers/obtener_noticias.php";
 ?>
 
 <!doctype html>
@@ -9,11 +8,14 @@ require_once "controllers/obtener_noticias.php";
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shorcut icon" type="image/x-icon" href="assets/icons/favicon.ico">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Panel de administración: Noticias</title>
 </head>
 
 <body class="bg-zinc-800">
+
+    <!-- HEADER -->
     <header class="w-screen h-20 flex items-center justify-between bg-zinc-900 border-b-2 border-indigo-600">
         <div class="w-1/4 px-4">
             <h2 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
@@ -30,6 +32,7 @@ require_once "controllers/obtener_noticias.php";
         </nav>
     </header>
 
+    <!-- SECCION PRINCIPAL -->
     <section class="main">
         <!-- Informacion del panel -->
         <div class="flex flex-col-2 justify-between align-items-center p-5 m-5 text-white" >
@@ -37,7 +40,9 @@ require_once "controllers/obtener_noticias.php";
                 <h2 class=" font-bold text-2xl">Panel de administración de noticias</h2>
                 <p class=" pt-1">Herramienta interna - Ingeniería en Teleinformática</p>
             </div>
-            <span class="w-60 h-10 text-center bg-indigo-800 rounded-xl p-1 font-bold">Noticias publicadas: <?php echo $totalNoticias; ?> </span>
+            <h2 class="w-60 h-10 text-center bg-indigo-800 rounded-xl p-1 font-bold">Noticias publicadas:
+            <span id="total-noticias">Cargando</span>
+            </h2>
         </div>
 
         <!-- Alertas -->
@@ -85,41 +90,14 @@ require_once "controllers/obtener_noticias.php";
 
             <!-- Mostrar noticias publicadas -->
             <div class="w-full text-white p-10 m-15 bg-zinc-900 border-2 border-indigo-600 rounded-2xl">
-                <h3 class="text-2xl font-extrabold">Noticias publicadas:</h3>
-                <?php if($totalNoticias > 0): ?>
-                <?php foreach($noticias as $noticia): ?>
-                    <div class="flex flex-col-2 p-5">
-                        <!-- Noticia -->
-                        <h3 class="m-3"><?php echo htmlspecialchars($noticia['titulo']) ?></h3>
-                        <p class="m-3"><?php echo htmlspecialchars($noticia['resumen']) ?></p>
+                <div>
+                    <h3 class="text-2xl font-extrabold">Noticias publicadas:</h3>
+                    <!-- <button>Actualizar</button> -->
+                </div>
 
-                        <!-- Boton: eliminar noticia -->
-                        <form action="controllers/eliminar_noticia.php" method="POST">
-                            <input type="hidden" name="id" value="<?php echo $noticia['id']; ?>">
-                            <input type="submit" value="Eliminar" class="w-25 h5 ml-40 mt-3 mb-3 bg-indigo-800 rounded-xl font-bold text-center">
+                <div id="news-container" class="news-container">
 
-                        </form>
-                        <!-- Boton: editar noticia -->
-                        <div>
-                            <input type="hidden" name="id" value="<?php echo $noticia['id']; ?>">
-                            <button onclick="edit(<?php echo $noticia['id']; ?>)"
-                            class="w-25 h5 ml-3 mt-3 mb-3 bg-indigo-800 rounded-xl font-bold text-center">
-                                Editar
-                            </button>
-
-
-                        </div>
-                    </div>
-
-                <?php endforeach; ?>
-
-                <?php else: ?>
-                    <div>
-                        <p class="mt-10 font-bold">No hay noticias publicadas. 
-                            Prueba a crear una publicación!
-                        </p>
-                    </div>
-                <?php endif;?>
+                </div>
             </div>
 
             <!-- modal-editar -->
@@ -156,12 +134,21 @@ require_once "controllers/obtener_noticias.php";
                         Cancelar
                     </button>
                 </div>
-                
-
                 </form>
-
              </dialog>
         </div>
+
+        <!-- modal-notificaciones -->
+         <dialog id="modal-notifications">
+            <div>
+                <h3 id="message-type">Info</h3>
+                <p id="massage">Mensaje</p>
+                <button type="button" onclick="document.getElementById('modal-notifications').close()">
+                    Aceptar
+                </button>
+            </div>
+         </dialog>
+
     </section>
 
     <script src="assets/js/app.js"></script>
