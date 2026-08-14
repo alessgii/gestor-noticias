@@ -1,35 +1,37 @@
 <?php
-session_start();
 require_once "../config/conn.php";
 
 
-if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-    $id = (int)$_POST['id'];
+if($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['id'])) {
+    $id = $_GET['id'];
 
     try {
         $query = "DELETE FROM noticias WHERE id = :id";
         $stmt = $pdo->prepare($query);
         $stmt->execute([":id" => $id]);
-
+      
         if( $stmt->rowCount() > 0) {
-            $_SESSION['mensaje'] = "La noticia se ha eliminado con éxito.";
-            $_SESSION['tipo-msj'] = "succes";
+            echo json_encode([
+                'status' => 'success',
+                'message'=> 'La noticia se ha eliminado con éxito.'
+            ]);
         } else { 
-            $_SESSION['mensaje'] = "Error al eliminar la noticia, intenta de nuevo. ($id)";
-            $_SESSION['tipo-msj'] = "error";            
+           echo json_encode([
+            'status'=> 'error',
+            'message'=> 'Ocurrió un error al eliminar la noticia. La noticia no existe.'
+           ]);           
         }
 
     } catch (Throwable $e) {
-        $_SESSION['mensaje'] = $e->getMessage();
-        $_SESSION['type-msj'] = "error";
+        http_response_code(500);
+        echo json_encode([
+            'status'=> 'error',
+            'message'=> $e->getMessage()
+        ]);
 
     }
-    
-    header("Location: ../index.php");
-    exit();
 
 } else {
-    header('Location: ../index.php');
-    exit();
+    http_response_code(500);
 }
 

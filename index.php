@@ -3,9 +3,10 @@ session_start();
 ?>
 
 <!doctype html>
-<html>
+<html lang="es">
 
 <head>
+    
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shorcut icon" type="image/x-icon" href="assets/icons/favicon.ico">
@@ -58,7 +59,7 @@ session_start();
         <?php endif; ?>
 
         <!-- Contenedor de formularios -->
-        <div class="flex flex-col-2">
+        <div class="flex">
         <!-- Formulario: creacion de noticia -->
             <form action="controllers/crear_noticia.php" method="POST"
                 class=" w-180 h-150 flex flex-col align-items-center p-10 m-15 text-white bg-zinc-900 border-2 rounded-2xl border-indigo-800">
@@ -68,8 +69,8 @@ session_start();
                 <input type="text" name="titulo" required placeholder="Escribe el titulo" id="titulo"
                     class="border-2 border-white rounded-sm p-2">
 
-                <label class="pt-6 mb-3 font-extrabold" for="resumen">Resumen:</label>
-                <input type="text" name="resumen" placeholder="Escribe un resumen" required id="resumen" class="border-2 border-white rounded-sm p-2">
+                <!-- <label class="pt-6 mb-3 font-extrabold" for="resumen">Resumen:</label>
+                <input type="text" name="resumen" placeholder="Escribe un resumen" required id="resumen" class="border-2 border-white rounded-sm p-2"> -->
 
                 <label class="pt-6 pb-3 font-extrabold" for="contenido">Contenido:</label>
                 <input type="text" name="contenido" placeholder="Redacta la noticia" required id="contenido" class="border-2 border-white rounded-sm p-2">
@@ -83,6 +84,9 @@ session_start();
                         <option value="3">Avisos</option>
                     </select>
                 </div>
+
+                <label for="file" class="pt-6 pb-3 font-extrabold">Subir portada:</label>
+                <input type="file" name="file" id="file" class="rounded-sm p-2 bg-indigo-600">
 
                 <input class="m-10 mt-10 p-3 bg-indigo-700 font-black text-xl rounded-xl" type="submit"
                     value="Publicar noticia">
@@ -124,7 +128,7 @@ session_start();
                     </select>
                 </div>
 
-                <div class="flex flex-col-2 mt-13 align-items-center">
+                <div class="flex flex-col-2 mt-13 align-items-center backdrop:backdrop-blur-sm backdrop:bg-slate-950/80">
                     <button class="w-1/2  font-bold rounded-sm border-white bg-indigo-700 p-1 mb-3"
                     type="submit" id="submit">
                         Editar
@@ -141,12 +145,23 @@ session_start();
         <!-- modal-notificaciones -->
          <dialog id="modal-notifications">
             <div>
-                <h3 id="message-type">Info</h3>
-                <p id="massage">Mensaje</p>
+                <h3 id="message-type"></h3>
+                <p id="message"></p>
                 <button type="button" onclick="document.getElementById('modal-notifications').close()">
                     Aceptar
                 </button>
             </div>
+         </dialog>
+
+         <!-- modal-delete-confirmation -->
+         <dialog id="modal-delete-confirmation">
+            <div>
+                <h3>Estás a punto de eliminar una noticia</h3>
+                <p>Nombre noticia</p>
+                <button onclick="" id="btn-delete-confirmation">ELIMINAR</button>
+                <button onclick="document.getElementById('modal-delete-confirmation').close()">CANCELAR</button>
+            </div>
+
          </dialog>
 
     </section>
