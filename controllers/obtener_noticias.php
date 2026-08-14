@@ -1,12 +1,6 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-require_once "config/conn.php";
-
-$noticias = [];
-$totalNoticias = 0;
-
+require_once "../config/conn.php";
+header("Content-Type: application/json; charset=utf-8");
 
 try {
     $query = "SELECT id, titulo, resumen FROM noticias ORDER BY fecha_publicacion DESC";
@@ -14,11 +8,17 @@ try {
     $stmt->execute();
 
     $noticias = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $totalNoticias = count($noticias);
-    // $totalNoticias = $stmt->fetchColumn();
 
-
+    echo json_encode([
+        'status' => 'success',
+        'total' => count($noticias),
+        'data' => $noticias 
+    ]);
     
 } catch (Throwable $e) {
-    echo "". $e->getMessage();
+    http_response_code(500);
+    echo json_encode([
+        'status'=> 'error',
+        'message'=> 'Error al obtener las noticias.' . $e->getMessage()
+    ]);
 }
