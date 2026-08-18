@@ -2,6 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     cargarNoticias();
 });
 
+const modalNotis = document.getElementById('modal-notifications');
+const messageType = document.getElementById('message-type');
+const message = document.getElementById('message');
+
 async function cargarNoticias() {
     const totalNoticias = document.getElementById('total-noticias');
     const container = document.getElementById('news-container');
@@ -31,8 +35,8 @@ async function cargarNoticias() {
 
                 card.innerHTML = `
                     <h3 class="m-3">${noticia.titulo}</h3>
-                    <p class="m-3">${noticia.resumen}</p>
-                    <button onclick="document.getElementById('modal-delete-confirmation').showModal()" class="w-25 h5 ml-40 mt-3 mb-3 bg-red-600 rounded-xl font-bold text-center">Eliminar</button>
+                    <p class="m-3">${noticia.contenido}</p>
+                    <button onclick="eliminar(${noticia.id})" class="w-25 h5 ml-40 mt-3 mb-3 bg-red-600 rounded-xl font-bold text-center">Eliminar</button>
 
                     <button onclick="edit(${noticia.id})" class="w-25 h5 ml-3 mt-3 mb-3 bg-indigo-800 rounded-xl font-bold text-center">Editar</button>
                     
@@ -48,14 +52,12 @@ async function cargarNoticias() {
         }
      } catch (error) {
         totalNoticias.textContent = '0';
-        container.innerHTML = '<p>Ocurrió un error en la conexión.</p>';
+        container.innerHTML = '<p>Ocurrió un lll en la conexión.</p>';
     }
 }
 
-// Obtener la informacion para mostrarla en los campos de edicion
 async function edit(id) {
     document.getElementById('modal-editar').showModal();
-    // hacer la consulta
     try {
         const response = await fetch(`controllers/consultar_noticia.php?id=${id}`);
         const result = await response.json();
@@ -67,7 +69,7 @@ async function edit(id) {
         const noticia = result.data;
         document.getElementById('noticia-id').value =noticia.id;
         document.getElementById('edit-titulo').value = noticia.titulo;
-        document.getElementById('edit-resumen').value = noticia.resumen;
+        document.getElementById('edit-resumen').value = noticia.contenido;
         document.getElementById('edit-categoria').value = noticia.categoria_id;
 
         cargarNoticias();
@@ -78,9 +80,7 @@ async function edit(id) {
 }
 
 async function eliminar(id) {
-    const modalNotis = document.getElementById('modal-notifications');
-    const messageType = document.getElementById('message-type');
-    const message = document.getElementById('message');
+
     try {
         const response = await fetch(`controllers/eliminar_noticia.php?id=${id}`, {method: 'DELETE'});
         const result = await response.json();
@@ -105,3 +105,42 @@ async function eliminar(id) {
 
 }
 
+// async function crearNoticia() {
+    const form = document.getElementById('form-create');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+
+        try {
+
+            const response = await fetch(`controllers/crear_noticia.php`,
+                {method: 'POST',
+                body: formData
+                }
+
+            );
+            const result = await response.json();
+
+            if (!response.ok) {
+                modalNotis.showModal();
+                messageType.textContent = "Error";
+                message.textContent = result.message;
+                return;
+            }
+            modalNotis.showModal();
+            messageType.textContent = "OK";
+            message.textContent = result.message;
+
+            cargarNoticias();
+            form.reset();
+    } catch {
+            modalNotis.showModal();
+            messageType.textContent = "Error";
+            message.textContent = "Error al crear la noticia."
+    }
+
+    });
+
+    
+// }

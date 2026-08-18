@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <!doctype html>
 <html lang="es">
 
@@ -26,7 +22,7 @@ session_start();
         <nav class="">
             <div class="flex flex-row">
                 <a href="#inicio" class=" px-3 py-1 mr-4 no-underline rounded-s text-white hover:font-bold">INICIO</a>
-                <a href="/pagina-teleinformatica/index.php?page=noticias"
+                <a href="/pagina-teleinformatica/noticias"
                     class=" px-3 py-1 mr-4 no-underline rounded-xl text-white hover:font-bold">NOTICIAS</a>
                 <a href="#" class=" px-3 py-1 mr-4 no-underline rounded-xl text-white hover:font-bold">SOPORTE</a>
             </div>
@@ -46,22 +42,10 @@ session_start();
             </h2>
         </div>
 
-        <!-- Alertas -->
-        <?php if(isset($_SESSION['mensaje'])): ?>
-            <div class="text-white border-2 border-white rounded-2xl p-5 alert-<?php echo $_SESSION['tipo-msj'];?>">
-                <p><?php echo $_SESSION['mensaje'];?></p>
-
-            </div>
-            <?php
-                unset($_SESSION['mensaje']);
-                unset($_SESSION['tipo-msj']);
-            ?>
-        <?php endif; ?>
-
         <!-- Contenedor de formularios -->
         <div class="flex">
         <!-- Formulario: creacion de noticia -->
-            <form action="controllers/crear_noticia.php" method="POST"
+            <form id="form-create" enctype="multipart/form-data"
                 class=" w-180 h-150 flex flex-col align-items-center p-10 m-15 text-white bg-zinc-900 border-2 rounded-2xl border-indigo-800">
                 <label class="text-xl font-black" for="">Publicar una noticia</label>
 
@@ -86,7 +70,8 @@ session_start();
                 </div>
 
                 <label for="file" class="pt-6 pb-3 font-extrabold">Subir portada:</label>
-                <input type="file" name="file" id="file" class="rounded-sm p-2 bg-indigo-600">
+                <input type="file" name="imagen" id="imagen" accept=".jpg, .jpeg, .png"
+                class="rounded-sm p-2 bg-indigo-600">
 
                 <input class="m-10 mt-10 p-3 bg-indigo-700 font-black text-xl rounded-xl" type="submit"
                     value="Publicar noticia">
@@ -115,7 +100,7 @@ session_start();
                 <label for="titulo" class="font-bold">Titulo:</label>
                 <input type="text" id="edit-titulo" required class="border-2 border-white rounded-sm p-1 mt-2">
 
-                <label for="resumen" class="font-bold mt-2">Resumen:</label>
+                <label for="resumen" class="font-bold mt-2">Contenido:</label>
                 <textarea name="edit-resumen" id="edit-resumen" required class="border-2 border-white rounded-sm p-1 mt-2"></textarea>
 
                 <div class="flex flex-col align-items-center">

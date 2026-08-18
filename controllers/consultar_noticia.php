@@ -11,7 +11,6 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset( $_GET["id"] )) {
         $query = "SELECT 
         n.id,
         n.titulo,
-        n.resumen,
         n.contenido,
         n.imagen_url,
         n.fecha_publicacion,

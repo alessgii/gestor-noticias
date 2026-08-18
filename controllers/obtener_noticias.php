@@ -3,7 +3,7 @@ require_once "../config/conn.php";
 header("Content-Type: application/json; charset=utf-8");
 
 try {
-    $query = "SELECT id, titulo, resumen FROM noticias ORDER BY fecha_publicacion DESC";
+    $query = "SELECT id, titulo, contenido FROM noticias ORDER BY fecha_publicacion DESC";
     $stmt = $pdo->prepare($query);
     $stmt->execute();
 
