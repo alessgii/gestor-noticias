@@ -92,20 +92,20 @@
             <!-- modal-editar -->
              <dialog id="modal-editar" class="w-1/3 h-120 bg-zinc-800 border-2 border-indigo-800 rounded-2xl text-white p-5 m-auto align-items-center">
 
-                <form class="flex flex-col">
+                <form id="form-edit" class="flex flex-col">
                 <h3 class="font-bold text-xl mb-3">Editar noticia</h3>
 
-                <input type="hidden" name="edit-id" required id="noticia-id">
+                <input type="hidden" name="id" required id="noticia-id">
 
                 <label for="titulo" class="font-bold">Titulo:</label>
-                <input type="text" id="edit-titulo" required class="border-2 border-white rounded-sm p-1 mt-2">
+                <input type="text" name="titulo" id="edit-titulo" required class="border-2 border-white rounded-sm p-1 mt-2">
 
                 <label for="resumen" class="font-bold mt-2">Contenido:</label>
-                <textarea name="edit-resumen" id="edit-resumen" required class="border-2 border-white rounded-sm p-1 mt-2"></textarea>
+                <textarea name="contenido" id="edit-contenido" required class="border-2 border-white rounded-sm p-1 mt-2"></textarea>
 
                 <div class="flex flex-col align-items-center">
                     <label class="pt-6 pb-3 font-extrabold" for="edit-categoria">Categoria:</label>
-                    <select name="edit-categoria" id="edit-categoria" required class="border-2 border-white rounded-sm p-2">
+                    <select name="categoria_id" id="edit-categoria" required class="border-2 border-white rounded-sm p-2">
                         <option value="" disabled>Seleccionar categoría</option>
                         <option value="1">Logros</option>
                         <option value="2">Alianzas</option>
@@ -115,7 +115,7 @@
 
                 <div class="flex flex-col-2 mt-13 align-items-center backdrop:backdrop-blur-sm backdrop:bg-slate-950/80">
                     <button class="w-1/2  font-bold rounded-sm border-white bg-indigo-700 p-1 mb-3"
-                    type="submit" id="submit">
+                    type="submit" id="submit-edit">
                         Editar
                     </button>
                     <button type="button" class="w-1/2 font-bold rounded-sm border-white bg-indigo-700 p-1 mb-3 ml-6"
